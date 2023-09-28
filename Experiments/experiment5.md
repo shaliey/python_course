@@ -1,15 +1,14 @@
 # 实验五 Python数据结构与数据模型
 
-班级： 21计科1
+班级： 21计科4班
 
-学号： 202302200000
+学号： B20210302426
 
-姓名： 张三
+姓名： 陈佩儿
 
-Github地址：<https://github.com/yourusername/python_course>
+Github地址：<https://github.com/shaliey/python_course>
 
-CodeWars地址：<https://www.codewars.com/users/yourusername>
-
+CodeWars地址：<https://www.codewars.com/users/shaliey>
 ---
 
 ## 实验目的
