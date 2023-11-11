@@ -283,8 +283,131 @@ classDiagram
 
 - [第一部分 Python面向对象编程](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+#### 第一题：面向对象的海盗
+```python
+class Ship:
+    def __init__(self, draft, crew):
+        self.draft = draft
+        self.crew = crew
+    # Your code here
+    def is_worth_it(Ship):
+        if Ship.draft-Ship.crew*1.5>=20:
+            return True
+        return False
+```
+#### 第二题： 搭建积木
+```python
+class Block:
+    def __init__(self, dimensions):
+        self.width = dimensions[0]
+        self.length = dimensions[1]
+        self.height = dimensions[2]
 
+    def get_width(self):
+        return self.width
+
+    def get_length(self):
+        return self.length
+
+    def get_height(self):
+        return self.height
+
+    def get_volume(self):
+        return self.width * self.length * self.height
+
+    def get_surface_area(self):
+        return 2 * (self.width * self.length + self.width * self.height + self.length * self.height)
+
+```
+#### 第三题： 分页助手
+```python
+class PaginationHelper:
+    def __init__(self, collection, items_per_page):
+        self.collection = collection
+        self.items_per_page = items_per_page
+
+    def item_count(self):
+        return len(self.collection)
+
+    def page_count(self):
+        return (len(self.collection) + self.items_per_page - 1) // self.items_per_page
+
+    def page_item_count(self, page_index):
+        if page_index < 0 or page_index >= self.page_count():
+            return -1
+        elif page_index == self.page_count() - 1:
+            return len(self.collection) % self.items_per_page or self.items_per_page
+        else:
+            return self.items_per_page
+
+    def page_index(self, item_index):
+        if item_index < 0 or item_index >= len(self.collection):
+            return -1
+        else:
+            return item_index // self.items_per_page
+```
+#### 第四题： 向量（Vector）类
+```python
+import math
+class Vector:
+  # TODO: Finish the Vector class.
+    def __init__(self,dismention):
+        self.dismention=dismention
+    def __str__(self):
+        return "(" + ",".join(map(str, self.dismention)) + ")"
+    def equals(self,other):
+        return self.dismention==other.dismention
+    def add(self,other):
+        if len(self.dismention)!=len(other.dismention):
+            raise ValueError("Vector dimensions must match for addition")
+        result = [a+b for a,b in zip(self.dismention,other.dismention)]
+        return Vector(result)
+    def subtract(self,other):
+        if len(self.dismention)!=len(other.dismention):
+            raise ValueError("Vector dimensions must match for addition")
+        result = [a-b for a,b in zip(self.dismention,other.dismention)]
+        return Vector(result)
+    def dot(self,other):
+        if len(self.dismention)!=len(other.dismention):
+            raise ValueError("Vector dimensions must match for addition")
+        result = sum(a*b for a,b in zip(self.dismention,other.dismention))
+        return result
+    def norm(self): 
+        result = math.sqrt(sum(a**2 for a in self.dismention))
+        return result
+```
+#### 第五题： Codewars风格的等级系统
+```python
+
+```
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+#### 第一题：面向对象的海盗
+```mermaid
+classDiagram
+    class Ship {
+        - draft: float
+        - crew: int
+        + __init__(draft: float, crew: int)
+        + is_worth_it(): bool
+    }
+
+```
+#### 第二题： 搭建积木
+```mermaid
+classDiagram
+    class Block {
+        - width: float
+        - length: float
+        - height: float
+        + __init__(dimensions: List[float])
+        + get_width(): float
+        + get_length(): float
+        + get_height(): float
+        + get_volume(): float
+        + get_surface_area(): float
+    }
+
+```
 注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
 
 ![Git命令](/Experiments/img/2023-07-26-22-48.png)

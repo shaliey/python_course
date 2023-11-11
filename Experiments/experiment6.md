@@ -9,7 +9,7 @@
 Github地址：<https://github.com/shaliey/python_course>
 
 CodeWars地址：<https://www.codewars.com/users/shaliey>
----
+
 
 ## 实验目的
 
@@ -320,44 +320,199 @@ flowchart LR
 
 - [第一部分 Python函数](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
-
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
-
+#### 第一题：编码聚会1
 ```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
+def count_developers(lst):
+    # Your code here
+    n=0
+    for developer in lst:
+        if developer['continent'] == 'Europe' and developer['language'] == 'JavaScript' :
+            n+=1
+    return n
 ```
 
-代码运行结果的文本可以直接粘贴在这里。
 
-**注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
+#### 第二题： 使用函数进行计算
+```python
+def zero(func=None): 
+    if func is None:
+        return 0
+    else:
+        return func(0)
+def one(func=None): 
+    if func is None:
+        return 1
+    else:
+        return func(1)
+def two(func=None): 
+    if func is None:
+        return 2
+    else:
+        return func(2)
+def three(func=None): 
+    if func is None:
+        return 3
+    else:
+        return func(3)
+def four(func=None): 
+    if func is None:
+        return 4
+    else:
+        return func(4)
+def five(func=None): 
+    if func is None:
+        return 5
+    else:
+        return func(5)
+def six(func=None): 
+    if func is None:
+        return 6
+    else:
+        return func(6)
+def seven(func=None):
+    if func is None:
+        return 7
+    else:
+        return func(7)
+def eight(func=None):
+    if func is None:
+        return 8
+    else:
+        return func(8)
+def nine(func=None): 
+    if func is None:
+        return 9
+    else:
+        return func(9)
+def plus(x):
+    return lambda y:y+x
+def minus(x): 
+    return lambda y:y-x
+def times(x): 
+    return lambda y:y*x
 
+def divided_by(x): 
+    return lambda y:y//x
+```
+#### 第三题： 缩短数值的过滤器(Number Shortening Filter)
+```python
+def shorten_number(base_values, base):
+    def shortener(number):
+        if isinstance(number, str) and number.isdigit():
+            number = int(number)
+            for i in range(len(base_values) - 1, -1, -1):
+                divisor = base ** i
+                if number >= divisor:
+                    return f'{number // divisor}{base_values[i]}'
+        return str(number)
+    return shortener
+```
+#### 第四题： 编码聚会7
+```python
+def find_senior(lst): 
+    # your code here
+    result=[]
+    result1=[]
+    for developer in lst:
+        result.append(developer['age'])
+    ages=max(result)
+    for developer in lst:
+        if developer['age']==ages:
+            result1.append(developer)
+    return result1
+```
+#### 第五题： Currying versus partial application
+```python
+from inspect import signature
+from functools import partial
+
+def curry_partial(main_func, *args):
+    
+    if not(callable(main_func)):
+        return main_func
+    
+    p = len(signature(main_func).parameters)
+    func = partial(main_func)
+    
+    for a in args:
+        if len(func.args) == p: break
+        func = partial(func, a)
+    
+    if len(func.args) < p:
+        return partial(curry_partial, main_func, *func.args)
+    return func()
+```
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+#### 第一题：编码聚会1
+```mermaid
+graph TD
+    Start[Start] --> ForLoop[Enter Loop]
+    ForLoop --> |For each developer| Condition[Check Condition]
+    Condition --> |Condition Met| Increment[Increment Counter]
+    Condition --> |Condition Not Met| Continue[Continue to Next Developer]
+    Increment --> |Increment Counter| ForLoop
+    Continue --> |Continue to Next Developer| ForLoop
+    ForLoop --> |Loop Completed| End[End]
+    End --> Output[Return Counter Value]
+
+```
+#### 第四题： 编码聚会7
+```mermaid
+graph TD
+    Start[Start] --> InitializeResult[Initialize Result List]
+    InitializeResult --> ForLoop1[Enter First Loop]
+    ForLoop1 --> |For Each Developer| ExtractAge[Extract Age]
+    ExtractAge --> |Extract Age| AppendAge[Append Age to Result List]
+    AppendAge --> |Append Age| ForLoop1
+    ForLoop1 --> |Complete First Loop| FindMaxAge[Find Max Age]
+    FindMaxAge --> |Find Max Age| InitializeResult1[Initialize Result1 List]
+    InitializeResult1 --> ForLoop2[Enter Second Loop]
+    ForLoop2 --> |For Each Developer| CompareAge[Compare Age]
+    CompareAge --> |Compare Age| AddToResult1[Add Matching Developers to Result1 List]
+    AddToResult1 --> |Add to Result1| ForLoop2
+    ForLoop2 --> |Complete Second Loop| End[End]
+    End --> Output[Return Result1 List]
+```
 ## 实验考查
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. 什么是函数式编程范式？
-2. 什么是lambda函数？请举例说明。
-3. 什么是高阶函数？常用的高阶函数有哪些？这些高阶函数如何工作？使用简单的代码示例说明。
+函数式编程范式（Functional Programming Paradigm）是一种编程方法论，它将计算看作是数学函数的组合。在函数式编程中，函数被视为一等公民，可以作为参数传递给其他函数，也可以从其他函数返回。它强调不可变性、无副作用和纯函数（相同输入始终产生相同输出），以及利用高阶函数来解决问题。函数式编程通常更加抽象和表达性，有助于编写清晰、简洁和可维护的代码。
 
+2. 什么是lambda函数？请举例说明。
+Lambda函数是匿名函数，也称为内联函数或函数字面量。它是一种在需要函数的地方定义短小的、临时的函数的方法，而不必使用传统的函数定义。Lambda函数通常用于函数式编程中，可以作为参数传递给其他函数。Lambda函数的一般形式是：`lambda arguments: expression`，其中 `arguments` 是函数的参数，`expression` 是函数的返回值。以下是一个Lambda函数的示例：
+    ```python
+        add = lambda x, y: x + y
+        print(add(3, 5))  # 输出 8
+        ```
+3. 什么是高阶函数？常用的高阶函数有哪些？这些高阶函数如何工作？使用简单的代码示例说明。
+高阶函数是可以接受一个或多个函数作为参数，并/或返回一个函数的函数。它们允许你在程序中操作函数，使代码更加灵活和抽象。常用的高阶函数包括：
+
+   - `map(function, iterable)`: 将一个函数应用于可迭代对象的每个元素，并返回结果。例如：
+     ```python
+     numbers = [1, 2, 3, 4, 5]
+     squared = list(map(lambda x: x ** 2, numbers))
+     print(squared)  # 输出 [1, 4, 9, 16, 25]
+     ```
+
+   - `filter(function, iterable)`: 根据函数的条件过滤可迭代对象中的元素，并返回满足条件的元素。例如：
+     ```python
+     numbers = [1, 2, 3, 4, 5]
+     even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+     print(even_numbers)  # 输出 [2, 4]
+     ```
+
+   - `reduce(function, iterable)`: 递归地应用一个二元函数到可迭代对象中的元素，将它们合并为单个值。需要导入 `functools` 模块。例如：
+     ```python
+     from functools import reduce
+     numbers = [1, 2, 3, 4, 5]
+     product = reduce(lambda x, y: x * y, numbers)
+     print(product)  # 输出 120 (1 * 2 * 3 * 4 * 5)
+     ```
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+在这次实验中，我学习和使用了以下知识和技能：
+1. 我了解了Python中的数据结构，特别是列表（List）的用法，用于存储和操作多个元素的集合。
+2. 程序语言的语法：我使用了Python语言的语法来编写函数和表达式，包括条件语句、循环、函数定义、Lambda函数等。

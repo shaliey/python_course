@@ -9,6 +9,7 @@
 Github地址：<https://github.com/shaliey/python_course>
 
 CodeWars地址：<https://www.codewars.com/users/shaliey>
+
 ---
 
 ## 实验目的
@@ -79,7 +80,7 @@ Python列表操作
 
 ```python
 ┌───┬───┬───┐
-│ 1 │ 2 │ 3 │
+│ 1 │ 2 │ 3 │ 
 ├───┼───┼───┤
 │ 4 │ 5 │ 6 │
 ├───┼───┼───┤
@@ -329,47 +330,214 @@ flowchart LR
 
 请将实验过程与结果放在这里，包括：
 
-- [第一部分 Python列表操作和if语句](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
-- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
-
-注意代码需要使用markdown的代码块格式化，例如Git命令行语句应该使用下面的格式：
-
-![Git命令](/Experiments/img/2023-07-26-22-48.png)
-
-显示效果如下：
-
-```bash
-git init
-git add .
-git status
-git commit -m "first commit"
-```
-
-如果是Python代码，应该使用下面代码块格式，例如：
-
-![Python代码](/Experiments/img/2023-07-26-22-52-20.png)
-
-显示效果如下：
+#### 第一题：淘气还是乖孩子（Naughty or Nice）
 
 ```python
-def add_binary(a,b):
-    return bin(a+b)[2:]
+def naughty_or_nice(data):
+    naughty=0
+    nice=0
+    for month, days in data.items():
+        for key in days.keys():
+            if days[key]=='Naughty':
+                naughty+=1
+            if days[key]=='Nice':
+                nice+=1
+    if naughty>nice:
+        return "Naughty!"
+    elif nice>naughty:
+        return "Nice!"
+    else:
+        return "Nice!"
 ```
+---
+#### 第二题： 观察到的PIN（The observed PIN）
+```python
+def get_pins(observed):
+    pass # TODO: This is your job, detective! 
+    # 定义相邻数字的映射关系
+    adjacent_digits = {
+        '0': ['0', '8'],
+        '1': ['1', '2', '4'],
+        '2': ['1', '2', '3', '5'],
+        '3': ['2', '3', '6'],
+        '4': ['1', '4', '5', '7'],
+        '5': ['2', '4', '5', '6', '8'],
+        '6': ['3', '5', '6', '9'],
+        '7': ['4', '7', '8'],
+        '8': ['5', '7', '8', '9', '0'],
+        '9': ['6', '8', '9']
+    }
+    
+    # 初始化结果列表，初始时只包含一个空字符串
+    result = ['']
+    
+    # 逐位生成PIN组合
+    for digit in observed:
+        new_result = []
+        for prefix in result:
+            for next_digit in adjacent_digits[digit]:
+                new_result.append(prefix + next_digit)
+        result = new_result
+    return result
+```
+---
+#### 第三题： RNA到蛋白质序列的翻译（RNA to Protein Sequence Translation）
+```python
+def protein(rna):
+    # your code here
+    result=""
+    while len(rna)>=3:
+        codon=rna[0:3]
+        if codon in PROTEIN_DICT.keys():
+            ami = PROTEIN_DICT[codon]
+            if ami == 'Stop':
+                break
+            result+=ami
+            rna=rna[3:]
+        else:
+            break
+    return result
+```
+---
+#### 第四题： 填写订单（Thinkful - Dictionary drills: Order filler）
 
-代码运行结果的文本可以直接粘贴在这里。
-
-**注意：不要使用截图，Markdown文档转换为Pdf格式后，截图可能会无法显示。**
-
+```python
+def fillable(stock, merch, n):
+    # Your code goes here.
+    if merch in stock.keys() and stock[merch]>=n:
+        return True
+    else:
+        return False
+```
+---
+#### 第五题： 莫尔斯码解码器（Decode the Morse code, advanced）
+```python
+def decodeBits(bits):
+    bits = bits.strip("0")
+    unit = 0
+    for bit in bits:
+        if bit != "0":
+            unit += 1
+        else:
+            break
+    count = 1
+    for i in range(1,len(bits)):
+        if bits[i] == bits[i-1]:
+            count += 1
+        else:
+            if count < unit:
+                unit = count
+                count = 1
+            else:
+                count = 1
+    morse_code = ""
+    words = bits.split("0"*7*unit)
+    for word in words:
+        characters = word.split("0"*3*unit)
+        for character in characters:
+            signs = character.split("0"*unit)
+            for sign in signs:
+                if sign == "1"*3*unit:
+                    morse_code += "-"
+                else:
+                    morse_code += "."
+            morse_code += " "
+        morse_code += "   "
+    return morse_code
+            
+def decodeMorse(morse_code):
+    morse_code.strip()
+    result = ""
+    characters = morse_code.split(" ")
+    for character in characters:
+        if character != "":
+            result += MORSE_CODE[character]
+        else:
+            result += " "
+    return ' '.join(result.split())
+```
+---
+- [第三部分 使用Mermaid绘制程序流程图](#第三部分)
+#### 第一题：淘气还是乖孩子（Naughty or Nice）
+```mermaid
+flowchart LR
+A((naughty=0, nice=0)) -->B{For each month in data}
+B -->C{For each day in the month}
+C-->D{Is the day Naughty?}
+C-->E{Is the day Nice?}
+D-->F((Increment naughty or nice count))
+E-->F
+F -->|Loop Complete|C
+C -->|Loop Complete|B
+B -->|Loop Complete|A
+F --> G{Is naughty count > nice count?}
+F --> H{Is nice count > naughty count?}
+G --> I{Return the result}
+H --> I
+I -->|Result| I
+```
+#### 第四题： 填写订单（Thinkful - Dictionary drills: Order filler）
+```mermaid
+flowchart LR
+A((start))-->B{Is 'merch' in stock?}
+B-->|YES|C{Is stock'merch' >= n?}
+B-->|NO|E{Return False}
+C-->|YES|D{Return True}
+C-->|NO|E{Return False}
+```
 ## 实验考查
 
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. 字典的键和值有什么区别？
-2. 在读取和写入字典时，需要使用默认值可以使用什么方法？
-3. Python中的while循环和for循环有什么区别？
-4. 阅读[PEP 636 – Structural Pattern Matching: Tutorial](https://peps.python.org/pep-0636/), 总结Python 3.10中新出现的match语句的使用方法。
+   - 键（key）是字典中的唯一标识符，用于查找和访问与之关联的值。键必须是不可变的，通常是字符串、数字或元组等。
+   - 值（value）是与键关联的数据。值可以是任何类型的数据，包括数字、字符串、列表、字典等。一个字典中的键对应一个值。
 
+2. 在读取和写入字典时，需要使用默认值可以使用什么方法？
+   - 可以使用字典的 `get()` 方法来读取字典中的值，并提供一个默认值，以防止键不存在时出现错误。示例：`value = my_dict.get(key, default_value)`。如果 `key` 存在于字典中，那么 `value` 将取得该键对应的值；如果 `key` 不存在，那么 `value` 将取得 `default_value`。
+   - 另外，还可以使用 `setdefault()` 方法来写入字典时提供默认值。示例：`my_dict.setdefault(key, default_value)`。如果 `key` 存在于字典中，不会修改已有的值；如果 `key` 不存在，将添加一个新的键值对，并将其值设置为 `default_value`。
+
+3. Python中的while循环和for循环有什么区别？
+   - `for` 循环用于迭代（遍历）可迭代对象（如列表、元组、字符串等），并按顺序访问其中的每个元素。`for` 循环通常用于已知迭代次数或遍历集合的情况。
+   - `while` 循环用于根据条件重复执行一段代码块。它会在每次迭代之前检查条件是否满足，只要条件为真，就会继续执行循环。`while` 循环通常用于未知迭代次数的情况，或者需要根据条件控制循环执行的情况。
+
+4. 阅读PEP 636 – Structural Pattern Matching: Tutorial, 总结Python 3.10中新出现的match语句的使用方法。
+   - `match` 语句是Python 3.10中引入的结构化模式匹配功能。它用于将值与多个模式进行匹配，并根据匹配的模式执行相应的代码块。
+   - `match` 语句的语法类似于 `switch` 或 `case` 语句，但更灵活和强大。
+   - 以下是 `match` 语句的主要用法和特性：
+     - 可以使用 `case` 子句来定义模式，并指定要与之匹配的值。
+     - 每个 `case` 子句可以包含一个代码块，用于在匹配时执行。
+     - 可以使用 `|` 运算符在一个 `case` 子句中定义多个模式。
+     - 可以使用 `if` 子句在 `case` 子句中添加附加条件。
+     - 可以使用 `match` 语句来匹配各种数据类型，包括数字、字符串、元组、自定义类等。
+     - `match` 语句具有模式匹配的强大能力，可以进行嵌套匹配和递归匹配。
+     - `match` 语句还支持捕获变量，可以在模式匹配中提取值。
+     - `match` 语句有一个可选的 `else` 子句，用于处理未匹配到任何模式的情况。
+   - 通过 `match` 语句，Python 3.10引入了更灵活和清晰的方式来处理多条件分支逻辑，取代了传统的 `if-elif-else` 结构。
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+
+**字典（Dictionary）总结：**
+
+1. 字典是Python中的一种数据结构，用于存储键值对。
+2. 字典的键必须是不可变的（通常是字符串、数字或元组），而值可以是任何数据类型。
+3. 使用大括号 `{}` 或 `dict()` 构造函数可以创建字典。
+4. 字典可以用于存储和检索数据，通过键访问相应的值。
+5. 字典的常见操作包括添加键值对、删除键值对、修改值、遍历键值对等。
+6. 使用 `dict[key]` 或 `dict.get(key, default)` 可以访问字典中的值，`default` 是可选的默认值。
+7. 使用 `dict[key] = value` 可以添加或修改键值对。
+8. 使用 `del dict[key]` 可以删除指定键值对。
+9. 使用 `key in dict` 可以检查键是否存在于字典中。
+
+**while循环总结：**
+
+1. `while` 循环是Python中的一种迭代结构，用于根据条件重复执行一段代码块。
+2. 循环会在每次迭代之前检查条件是否满足，只要条件为真，就会继续执行循环。
+3. `while` 循环通常用于处理未知迭代次数的情况，或需要根据条件控制循环执行的情况。
+4. 循环体是由冒号后的缩进代码块组成。
+5. 循环可以使用 `break` 语句提前结束，或使用 `continue` 跳过当前迭代。
+6. 防止无限循环：确保在循环中更新条件，以避免无限循环。
+
+
