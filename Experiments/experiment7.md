@@ -280,8 +280,6 @@ classDiagram
 ## 实验过程与结果
 
 请将实验过程与结果放在这里，包括：
-
-- [第一部分 Python面向对象编程](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
 #### 第一题：面向对象的海盗
 ```python
@@ -378,7 +376,29 @@ class Vector:
 ```
 #### 第五题： Codewars风格的等级系统
 ```python
-
+class User ():    
+    def __init__ (self):
+        self.RANKS = [-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8]
+        self.rank = -8
+        self.rank_index = 0
+        self.progress = 0
+        
+    def inc_progress (self, rank):
+        rank_index = self.RANKS.index(rank)
+        if rank_index == self.rank_index:
+            self.progress += 3          
+        elif rank_index == self.rank_index - 1:
+            self.progress += 1
+        elif rank_index > self.rank_index:
+            difference = rank_index - self.rank_index
+            self.progress += 10 * difference * difference
+        while self.progress >= 100:
+            self.rank_index += 1
+            self.rank = self.RANKS[self.rank_index]
+            self.progress -= 100    
+            if self.rank == 8:
+                self.progress = 0
+                return
 ```
 - [第三部分 使用Mermaid绘制程序流程图](#第三部分)
 #### 第一题：面向对象的海盗
@@ -441,9 +461,61 @@ def add_binary(a,b):
 请使用自己的语言并使用尽量简短代码示例回答下面的问题，这些问题将在实验检查时用于提问和答辩以及实际的操作。
 
 1. Python的类中__init__方法起什么作用？
+- __init__ 方法是一个特殊的方法，在创建一个类的实例时自动调用。它用于初始化对象的属性。在类的实例化过程中，__init__ 方法允许你为对象设置初始状态、属性等。这个方法是可选的，但在很多情况下都是必须的。
 2. Python语言中如何继承父类和改写（override）父类的方法。
+- 在 Python 中，继承是通过在新类的定义中指定要继承的父类来实现的。通过继承，子类可以使用父类的属性和方法，并且可以根据需要覆盖（override）父类的方法。方法覆盖允许子类提供对父类方法的新实现。
 3. Python类有那些特殊的方法？它们的作用是什么？请举三个例子并编写简单的代码说明。
+- Python 中的类有许多特殊方法，它们以双下划线开头和结尾（例如，__init__）。这些方法有特殊的用途，例如构造对象、实现迭代器、比较对象等。
+例子：
+
+__str__ 方法：返回一个对象的用户可读的字符串表示。
+
+```python
+class MyClass:
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return f"MyClass with value: {self.value}"
+
+obj = MyClass(42)
+print(obj)  # 输出 "MyClass with value: 42"
+```
+__eq__ 方法：用于比较两个对象是否相等。
+
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+p1 = Point(1, 2)
+p2 = Point(1, 2)
+print(p1 == p2)  # 输出 True
+```
+__len__ 方法：返回对象的长度。
+
+```python
+class MyList:
+    def __init__(self, items):
+        self.items = items
+
+    def __len__(self):
+        return len(self.items)
+
+my_list = MyList([1, 2, 3, 4])
+print(len(my_list))  # 输出 4
+```
 
 ## 实验总结
 
 总结一下这次实验你学习和使用到的知识，例如：编程工具的使用、数据结构、程序语言的语法、算法、编程技巧、编程思想。
+**Python类和对象**： 了解了Python中类和对象的基本概念，包括如何定义类、创建对象以及如何使用类的属性和方法。
+
+**init 方法**： 学习了 __init__ 方法的作用，即在对象实例化时进行初始化操作。这是一个特殊方法，用于设置对象的初始状态。
+
+**继承和方法覆盖**： 理解了如何通过继承来创建子类，并学会如何覆盖父类的方法，以便在子类中提供新的实现。
+

@@ -318,7 +318,6 @@ flowchart LR
 
 请将实验过程与结果放在这里，包括：
 
-- [第一部分 Python函数](#第一部分)
 - [第二部分 Codewars Kata挑战](#第二部分)
 #### 第一题：编码聚会1
 ```python
@@ -330,8 +329,6 @@ def count_developers(lst):
             n+=1
     return n
 ```
-
-
 #### 第二题： 使用函数进行计算
 ```python
 def zero(func=None): 
